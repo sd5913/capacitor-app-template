@@ -22,6 +22,27 @@ instructions. Actions uploads the `web` folder and an Android **debug APK**;
 download an artifact from the run and test it. The APK is not a signed store
 release.
 
+## Publish a versioned release
+
+When your team is ready to share a tested build, push a version tag:
+
+```bash
+git switch main
+git pull origin main
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+The tag must use `vMAJOR.MINOR.PATCH` (for example, `v1.0.0`). Actions runs the
+web checks and Android build first; only if both pass does it create a GitHub
+Release with `web.zip` and `android-debug.apk`. Find them under your repository's
+**Releases**. The APK uses Android's debug signing key and is for testing, not
+a Play Store release; use proper signing and store credentials for distribution.
+Run the workflow manually to download a `release-preview` artifact without
+publishing a release. A new release needs a new tag. Keep GitHub Actions enabled and allow the
+workflow's `GITHUB_TOKEN` contents-write permission. A tag creates a public
+release in a public repository; do not push one until you are ready to publish.
+
 ## Codex cloud environment
 
 Connect GitHub, create a new task and choose **Work in → Cloud → Select
